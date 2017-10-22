@@ -3,11 +3,11 @@
 #   However, coq can build without csdp by setting it to null.
 #   In this case some Micromega tactics will search the user's path for the csdp program and will fail if it is not found.
 
-{stdenv, fetchgit, writeText, pkgconfig, ocamlPackages_4_02, ncurses, buildIde ? true, csdp ? null}:
+{stdenv, fetchFromGitHub, writeText, pkgconfig, ocamlPackages_4_02, ncurses, buildIde ? true, csdp ? null}:
 
 let
-  version = "2017-02-03";
-  coq-version = "8.6";
+  version = "2017-10-22";
+  coq-version = "8.8";
   ideFlags = if buildIde then "-lablgtkdir ${ocamlPackages_4_02.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt" else "";
   csdpPatch = if csdp != null then ''
     substituteInPlace plugins/micromega/sos.ml --replace "; csdp" "; ${csdp}/bin/csdp"
@@ -25,10 +25,11 @@ stdenv.mkDerivation {
   inherit coq-version;
   inherit ocaml camlp5 findlib;
 
-  src = fetchgit {
-    url = git://scm.gforge.inria.fr/coq/coq.git;
-    rev = "078598d029792a3d9a54fae9b9ac189b75bc3b06";
-    sha256 = "0sflrpp6x0ada0bjh67q1x65g88d179n3cawpwkp1pm4kw76g8x7";
+  src = fetchFromGitHub {
+    owner = "coq";
+    repo = "coq";
+    rev = "0897d0f642c19419c513f9609782436bebf28f5b";
+    sha256 = "0kf2hg1z2r5sdhc15fc5jllj9m07xn208i92dgiw9v4j8114dvqk";
   };
 
   nativeBuildInputs = [ pkgconfig ];
@@ -55,7 +56,6 @@ stdenv.mkDerivation {
 
   preConfigure = ''
     configureFlagsArray=(
-      -opt
       ${ideFlags}
     )
   '';
