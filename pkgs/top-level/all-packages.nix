@@ -5418,7 +5418,9 @@ with pkgs;
 
   cmucl_binary = callPackage_i686 ../development/compilers/cmucl/binary.nix { };
 
-  compcert = callPackage ../development/compilers/compcert { };
+  compcert = callPackage ../development/compilers/compcert {
+    coq = coq_8_6;
+  };
 
 
   # Users installing via `nix-env` will likely be using the REPL,
@@ -7196,6 +7198,7 @@ with pkgs;
 
   framac = callPackage ../development/tools/analysis/frama-c {
     ocamlPackages = ocamlPackages_4_03;
+    coq = coq_8_6;
   };
 
   frame = callPackage ../development/libraries/frame { };
@@ -18606,7 +18609,7 @@ with pkgs;
   coqPackages_8_5 = mkCoqPackages coqPackages_8_5 coq_8_5;
   coqPackages_8_6 = mkCoqPackages coqPackages_8_6 coq_8_6;
   coqPackages_8_7 = mkCoqPackages coqPackages_8_7 coq_8_7;
-  coqPackages = coqPackages_8_6;
+  coqPackages = coqPackages_8_7;
   coq = coqPackages.coq;
 
   coq2html = callPackage ../applications/science/logic/coq2html {
@@ -18728,7 +18731,9 @@ with pkgs;
 
   veriT = callPackage ../applications/science/logic/verit {};
 
-  why3 = callPackage ../applications/science/logic/why3 {};
+  why3 = callPackage ../applications/science/logic/why3 {
+    coq = coq_8_6;
+  };
 
   yices = callPackage ../applications/science/logic/yices {
     gmp-static = gmp.override { withStatic = true; };

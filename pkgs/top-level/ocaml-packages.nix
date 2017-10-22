@@ -930,8 +930,13 @@ let
 
     verasco = callPackage ../development/tools/analysis/verasco (
       if system == "x86_64-linux"
-      then { tools = pkgs.pkgsi686Linux.stdenv.cc; }
-      else {}
+      then {
+        tools = pkgs.pkgsi686Linux.stdenv.cc;
+        coq = pkgs.coq_8_6;
+      }
+      else {
+        coq = pkgs.coq_8_6;
+      }
     );
 
     google-drive-ocamlfuse = callPackage ../applications/networking/google-drive-ocamlfuse { };
