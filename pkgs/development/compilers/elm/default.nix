@@ -1,6 +1,8 @@
 { lib, stdenv, pkgs
 , haskell, haskellPackages, nodejs
-, fetchurl, fetchpatch, makeWrapper, writeScriptBin
+, fetchurl, fetchpatch, makeWrapper, writeScriptBin, autoPatchelfHook
+  # Lamdera dependencies
+, zlib, gmp, ncurses5
   # Rust dependecies
 , curl, rustPlatform, openssl, pkg-config, Security
 }:
@@ -207,6 +209,11 @@ let
       inherit (nodePkgs) elm-doc-preview elm-live elm-upgrade elm-xref elm-analyse;
     };
 
+    lamdera = import ./packages/lamdera.nix {
+      inherit stdenv lib fetchurl autoPatchelfHook zlib gmp ncurses5;
+    };
+
 in hsPkgs.elmPkgs // elmNodePackages // elmRustPackages // {
   lib = elmLib;
+  inherit lamdera;
 }
