@@ -50,6 +50,8 @@ with lib; mkCoqDerivation {
 
   preInstall = "mkdir -p $out/lib/coq";
 
+  patches = [ ./firstorder.patch ];
+
   meta = with lib; {
     homepage = https://github.com/ejgallego/coq-serapi;
     description = "SerAPI is a library for machine-to-machine interaction with the Coq proof assistant";

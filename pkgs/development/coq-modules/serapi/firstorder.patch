@@ -1,0 +1,35 @@
+From 06fd428076638f76c9b5059f6397052b8e1a7a4e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Th=C3=A9o=20Zimmermann?= <theo.zimmermann@inria.fr>
+Date: Tue, 20 Jul 2021 11:13:20 +0200
+Subject: [PATCH] Rename ground_plugin into firstorder_plugin.
+
+---
+ serlib/plugins/firstorder/dune | 2 +-
+ sertop/sertop_loader.ml        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/serlib/plugins/firstorder/dune b/serlib/plugins/firstorder/dune
+index 043e990b..9546d761 100644
+--- a/serlib/plugins/firstorder/dune
++++ b/serlib/plugins/firstorder/dune
+@@ -1,6 +1,6 @@
+ (library
+  (name serlib_firstorder)
+- (public_name coq-serapi.serlib.ground_plugin)
++ (public_name coq-serapi.serlib.firstorder_plugin)
+  (synopsis "Serialization Library for Coq Firstorder Plugin")
+  (preprocess (staged_pps ppx_import ppx_sexp_conv))
+  (libraries coq.plugins.firstorder serlib sexplib))
+diff --git a/sertop/sertop_loader.ml b/sertop/sertop_loader.ml
+index 1f134470..3fe7179e 100644
+--- a/sertop/sertop_loader.ml
++++ b/sertop/sertop_loader.ml
+@@ -29,7 +29,7 @@ let map_serlib ml_mod =
+     | "ltac_plugin" -> false
+     (* | "tauto_plugin" -> false *)
+     (* Supported *)
+-    | "ground_plugin"           (* firstorder *)
++    | "firstorder_plugin"       (* firstorder *)
+     | "recdef_plugin"           (* funind *)
+     | "ring_plugin"             (* setoid_ring *)
+     | "extraction_plugin"       (* setoid_ring *)
